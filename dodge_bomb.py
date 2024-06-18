@@ -11,7 +11,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
         """
         引数：こうかとんRect, または, 爆弾Rect
         戻り値：真理値タプル（横方向、縦方向）
-        画面内ならTrue／画面買いならFalse
+        画面内ならTrue／画面外ならFalse
         """
         yoko, tate = True, True
         if rct.left < 0 or WIDTH < rct.right: # 横方向判定
@@ -32,6 +32,12 @@ def gm_ov(screen):
     """
     ゲームオーバー画面の設定
     引数：画面の大きさ
+    爆弾がこうかとんに当たると、
+    ・画面をブラックアウトする
+    ・画面中央に「game over」の文字を配置
+    ・画面の高さ半分、幅の外側からそれぞれ四分の一の位置
+    　に泣いているこうかとんの画像を配置
+    ・5秒間表示したら画面を閉じる
     """
     black_surface = pg.Surface((WIDTH, HEIGHT))  # ブラックアウト用のSurfaceを作成
     black_surface.set_alpha(128)  # 半透明に設定
